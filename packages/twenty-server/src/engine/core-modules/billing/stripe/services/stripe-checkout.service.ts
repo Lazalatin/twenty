@@ -35,6 +35,7 @@ export class StripeCheckoutService {
     plan: BillingPlanKey = BillingPlanKey.PRO,
     requirePaymentMethod = true,
   ): Promise<Stripe.Checkout.Session> {
+    //todo - add this : https://docs.stripe.com/api/checkout/sessions/create?lang=node&api-version=2024-10-28.acacia#create_checkout_session-subscription_data-trial_settings-end_behavior-missing_payment_method
     return await this.stripe.checkout.sessions.create({
       line_items: [
         {
@@ -49,7 +50,9 @@ export class StripeCheckoutService {
           plan,
         },
         trial_period_days: this.environmentService.get(
-          'BILLING_FREE_TRIAL_DURATION_IN_DAYS',
+          requirePaymentMethod
+            ? 'BILLING_FREE_TRIAL_WITH_CREDIT_CARD_DURATION_IN_DAYS'
+            : 'BILLING_FREE_TRIAL_WITHOUT_CREDIT_CARD_DURATION_IN_DAYS',
         ),
       },
       automatic_tax: { enabled: !!requirePaymentMethod },

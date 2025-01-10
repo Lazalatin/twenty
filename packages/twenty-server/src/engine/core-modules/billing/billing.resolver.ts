@@ -6,6 +6,7 @@ import { CheckoutSessionInput } from 'src/engine/core-modules/billing/dto/checko
 import { ProductPricesEntity } from 'src/engine/core-modules/billing/dto/product-prices.entity';
 import { ProductInput } from 'src/engine/core-modules/billing/dto/product.input';
 import { SessionEntity } from 'src/engine/core-modules/billing/dto/session.entity';
+import { TrialPeriod } from 'src/engine/core-modules/billing/dto/trial-period.entity';
 import { UpdateBillingEntity } from 'src/engine/core-modules/billing/dto/update-billing.entity';
 import { AvailableProduct } from 'src/engine/core-modules/billing/enums/billing-available-product.enum';
 import { BillingPortalWorkspaceService } from 'src/engine/core-modules/billing/services/billing-portal.workspace-service';
@@ -93,5 +94,10 @@ export class BillingResolver {
     await this.billingSubscriptionService.applyBillingSubscription(workspace);
 
     return { success: true };
+  }
+
+  @Query(() => [TrialPeriod])
+  getTrialPeriods() {
+    return this.billingPortalWorkspaceService.getTrialPeriods();
   }
 }

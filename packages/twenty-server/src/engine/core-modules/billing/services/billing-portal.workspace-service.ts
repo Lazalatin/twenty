@@ -3,12 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 
+import { TrialPeriod } from 'src/engine/core-modules/billing/dto/trial-period.entity';
 import { BillingSubscription } from 'src/engine/core-modules/billing/entities/billing-subscription.entity';
 import { BillingPlanKey } from 'src/engine/core-modules/billing/enums/billing-plan-key.enum';
 import { BillingSubscriptionService } from 'src/engine/core-modules/billing/services/billing-subscription.service';
 import { StripeBillingPortalService } from 'src/engine/core-modules/billing/stripe/services/stripe-billing-portal.service';
 import { StripeCheckoutService } from 'src/engine/core-modules/billing/stripe/services/stripe-checkout.service';
 import { DomainManagerService } from 'src/engine/core-modules/domain-manager/service/domain-manager.service';
+import { EnvironmentService } from 'src/engine/core-modules/environment/environment.service';
 import { UserWorkspace } from 'src/engine/core-modules/user-workspace/user-workspace.entity';
 import { User } from 'src/engine/core-modules/user/user.entity';
 import { Workspace } from 'src/engine/core-modules/workspace/workspace.entity';
@@ -26,6 +28,7 @@ export class BillingPortalWorkspaceService {
     @InjectRepository(UserWorkspace, 'core')
     private readonly userWorkspaceRepository: Repository<UserWorkspace>,
     private readonly billingSubscriptionService: BillingSubscriptionService,
+    private readonly environmentService: EnvironmentService,
   ) {}
 
   async computeCheckoutSessionURL(
@@ -108,5 +111,22 @@ export class BillingPortalWorkspaceService {
     assert(session.url, 'Error: missing billingPortal.session.url');
 
     return session.url;
+  }
+
+  getTrialPeriods(): TrialPeriod[] {
+    return [
+      {
+        duration: this.environmentService.get(
+          'BILLING_FREE_TRIAL_WITH_CREDIT_CARD_DURATION_IN_DAYS',
+        ),
+        isCreditCardRequired: true,
+      },
+      {
+        duration: this.environmentService.get(
+          'BILLING_FREE_TRIAL_WITHOUT_CREDIT_CARD_DURATION_IN_DAYS',
+        ),
+        isCreditCardRequired: false,
+      },
+    ];
   }
 }

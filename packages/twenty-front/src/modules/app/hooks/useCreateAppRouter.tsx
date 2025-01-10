@@ -17,7 +17,7 @@ import { SignInUp } from '~/pages/auth/SignInUp';
 import { NotFound } from '~/pages/not-found/NotFound';
 import { RecordIndexPage } from '~/pages/object-record/RecordIndexPage';
 import { RecordShowPage } from '~/pages/object-record/RecordShowPage';
-import { ChooseYourPlan } from '~/pages/onboarding/ChooseYourPlan';
+import { ChooseYourTrial } from '~/pages/onboarding/ChooseYourTrial';
 import { CreateProfile } from '~/pages/onboarding/CreateProfile';
 import { CreateWorkspace } from '~/pages/onboarding/CreateWorkspace';
 import { InviteTeam } from '~/pages/onboarding/InviteTeam';
@@ -48,7 +48,7 @@ export const useCreateAppRouter = (
           <Route path={AppPath.CreateProfile} element={<CreateProfile />} />
           <Route path={AppPath.SyncEmails} element={<SyncEmails />} />
           <Route path={AppPath.InviteTeam} element={<InviteTeam />} />
-          <Route path={AppPath.PlanRequired} element={<ChooseYourPlan />} />
+          <Route path={AppPath.PlanRequired} element={<ChooseYourTrial />} />
           <Route
             path={AppPath.PlanRequiredSuccess}
             element={<PaymentSuccess />}

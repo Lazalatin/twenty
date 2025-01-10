@@ -18,9 +18,6 @@ export class ClientConfigResolver {
       billing: {
         isBillingEnabled: this.environmentService.get('IS_BILLING_ENABLED'),
         billingUrl: this.environmentService.get('BILLING_PLAN_REQUIRED_LINK'),
-        billingFreeTrialDurationInDays: this.environmentService.get(
-          'BILLING_FREE_TRIAL_DURATION_IN_DAYS',
-        ),
       },
       authProviders: {
         google: this.environmentService.get('AUTH_GOOGLE_ENABLED'),

@@ -11,6 +11,7 @@ class Billing {
   @Field(() => String, { nullable: true })
   billingUrl?: string;
 
+  //todo : to delete
   @Field(() => Number, { nullable: true })
   billingFreeTrialDurationInDays?: number;
 }

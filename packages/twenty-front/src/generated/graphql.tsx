@@ -931,6 +931,7 @@ export type Query = {
   getTimelineCalendarEventsFromPersonId: TimelineCalendarEventsWithTotal;
   getTimelineThreadsFromCompanyId: TimelineThreadsWithTotal;
   getTimelineThreadsFromPersonId: TimelineThreadsWithTotal;
+  getTrialPeriods: Array<TrialPeriod>;
   index: Index;
   indexMetadatas: IndexConnection;
   listSSOIdentityProvidersByWorkspaceId: Array<FindAvailableSsoidpOutput>;
@@ -1308,6 +1309,12 @@ export type TimelineThreadsWithTotal = {
 export type TransientToken = {
   __typename?: 'TransientToken';
   transientToken: AuthToken;
+};
+
+export type TrialPeriod = {
+  __typename?: 'TrialPeriod';
+  duration: Scalars['Float'];
+  isCreditCardRequired: Scalars['Boolean'];
 };
 
 export type UuidFilterComparison = {
